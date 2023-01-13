@@ -1,7 +1,5 @@
 # Documentation
 
-[TOC]
-
 ## Demo
 
 ### Introduction
