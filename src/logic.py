@@ -5,7 +5,7 @@ class Logic(object):
     def __init__(self):
         self.client = pymongo.MongoClient('127.0.0.1',8888)
 
-        self.db = self.client.dashmote_case
+        self.db = self.client.container_group30
         self.collection_outlet = self.db.Outlet
         self.collection_users = self.db.User
         self.collection_reviews = self.db.Reviews

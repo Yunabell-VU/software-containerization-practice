@@ -119,9 +119,9 @@ Here is the list of API provided:
 
 | API                           | Description                                                  | Method | Example                                           |
 | :---------------------------- | :----------------------------------------------------------- | :----: | :------------------------------------------------ |
-| /                             | Index page                                                   |  GET   | localhost:5000/                                   |
-| /outlets/brand/<brand name>   | List outlets which have certain brand. You can enter only the first several letters of a brand, e.g. 'coca' for 'Coca-Cola'. Here is some examples of brand in the database: 'Fuze Tea', 'Frnandes', 'Chaudfontaine', etc. You don't need to capitalize the brand name. |  GET   | http://127.0.0.1:5000/outlets/brand/fuz                  |
-| /outlets/source/<source name> | List outlets by their source                                 |  GET   | http://127.0.0.1:5000/outlets/source/ubereats            |
-| /menus/price/above/<price>    | List menus which the item is above certain price             |  GET   | http://127.0.0.1:5000/menus/price/above/10               |
-| /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | http://127.0.0.1:5000/insert/outlet/?id_outlet=......... |
+| /                             | Index page                                                   |  GET   | 127.0.0.1:5000/                                   |
+| /outlets/brand/<brand name>   | List outlets which have certain brand. You can enter only the first several letters of a brand, e.g. 'coca' for 'Coca-Cola'. Here is some examples of brand in the database: 'Fuze Tea', 'Frnandes', 'Chaudfontaine', etc. You don't need to capitalize the brand name. |  GET   | 127.0.0.1:5000/outlets/brand/fuz                  |
+| /outlets/source/<source name> | List outlets by their source                                 |  GET   | 127.0.0.1:5000/outlets/source/ubereats            |
+| /menus/price/above/<price>    | List menus which the item is above certain price             |  GET   | 127.0.0.1:5000/menus/price/above/10               |
+| /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | 127.0.0.1:5000/insert/outlet/?id_outlet=......... |
 
