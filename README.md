@@ -13,10 +13,8 @@
 Run the following command to pull MongoDB
 
 ```bash
-$ docker pull mongo
+$ docker pull mongo:4.4.6
 ```
-
-
 
 ### Run database
 
@@ -32,7 +30,7 @@ $ docker run --name mongodb -p 8888:27017 -v ~/desktop/data/db:/data/db -d mongo
 
 
 
-### Test connection
+<!-- ### Test connection
 
 > This part does not functioning well at the moment, please skip it! Go to the section Run the API
 
@@ -59,7 +57,7 @@ Exit the database
 ```bash
 >> exit
 ```
-
+ -->
 
 
 ## 2. Run the API
@@ -79,7 +77,7 @@ $ pip3 install -r requirements.txt
 
 ### Run the API
 
-After successfully installed these modules, enter  directory `/src` , run the python file `run.py`
+After successfully installed these modules, enter  directory `/src/middelware` , run the python file `run.py`
 
 ```bash
 $ python3 run.py

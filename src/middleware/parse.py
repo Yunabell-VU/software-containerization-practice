@@ -18,7 +18,7 @@ class JsonToMongo(object):
         self.file.close()
     
     def process_tripadvisor_outlet(self):
-        filename = '../resource/tripadvisor_outlet.json'
+        filename = '../../resource/tripadvisor_outlet.json'
         self._open_file(filename)
         data = json.load(self.file)
 
@@ -53,7 +53,7 @@ class JsonToMongo(object):
             self._close_file()
 
     def process_tripadvisor_user(self):
-        filename = '../resource/tripadvisor_user.json'
+        filename = '../../resource/tripadvisor_user.json'
         self._open_file(filename)
         data = json.load(self.file)
 
@@ -71,7 +71,7 @@ class JsonToMongo(object):
             self._close_file()
 
     def process_tripadvisor_reviews(self):
-        filename = '../resource/tripadvisor_reviews.json'
+        filename = '../../resource/tripadvisor_reviews.json'
         self._open_file(filename)
         data = json.load(self.file)
 
@@ -98,7 +98,7 @@ class JsonToMongo(object):
 
 
     def process_ubereats_outlet(self):
-        filename = '../resource/ubereats_outlet.json'
+        filename = '../../resource/ubereats_outlet.json'
         self._open_file(filename)
         data = json.load(self.file)
 
@@ -115,7 +115,7 @@ class JsonToMongo(object):
             self._close_file()
 
     def process_ubereats_menu(self):
-        filename = '../resource/ubereats_menu.json'
+        filename = '../../resource/ubereats_menu.json'
         self._open_file(filename)
         data = json.load(self.file)
 

@@ -7,7 +7,7 @@ logic = Logic()
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return "Server Connected"
 
 @app.route('/outlets/brand/<string:brand_name>', methods=["GET"])
 def outlets_brand(brand_name):
