@@ -24,6 +24,8 @@ Run the following command to create a container
 
 ```bash
 $ docker run --name mongodb -p 8888:27017 -v ~/desktop/data/db:/data/db -d mongo
+
+# "~/desktop/" can be replaced with the local path you want
 ```
 
 **Notice**:  do not run the database in `--auth` mode
