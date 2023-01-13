@@ -4,6 +4,7 @@
 
 1. `Docker`  installed
 2. `Python >= 3.4`  installed
+3. `Node.js` installed
 
 
 ## 1. Run the database
@@ -125,3 +126,19 @@ Here is the list of API provided:
 | /menus/price/above/<price>    | List menus which the item is above certain price             |  GET   | 127.0.0.1:5000/menus/price/above/10               |
 | /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | 127.0.0.1:5000/insert/outlet/?id_outlet=......... |
 
+
+### Run the Web
+
+Make sure Node.js is installed.
+
+Go to the directory `/src/client`, enter the following CMD in order:
+
+```bash
+
+$ npm install
+$ npm run dev
+
+```
+
+Open the webpage shown in Local:
+http://127.0.0.1:5173/ (by default)
