@@ -131,7 +131,7 @@ One drawback of MongoDB is that it automatically adds an object id to each docum
 
 ### APIs
 
-(Check how to run the APIs on `environment_setting.pdf`)
+(Check how to run the APIs on `README`)
 
 
 

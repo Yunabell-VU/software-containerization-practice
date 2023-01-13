@@ -2,9 +2,8 @@
 
 ## Prerequisites
 
-1. `Docker` installed
-2. `Python` installed
-
+1. `Docker`  installed
+2. `Python >= 3.4`  installed
 
 
 ## 1. Run the database
@@ -24,10 +23,8 @@ $ docker pull mongo
 Run the following command to create a container
 
 ```bash
-$ docker run --name <YOUR-NAME> -p 8888:27017 -v /data/db:/data/db -d mongo
+$ docker run --name mongodb -p 8888:27017 -v ~/desktop/data/db:/data/db -d mongo
 ```
-
-`--name <YOUR-NAME>` : name the container as you like.
 
 **Notice**:  do not run the database in `--auth` mode
 
@@ -35,12 +32,14 @@ $ docker run --name <YOUR-NAME> -p 8888:27017 -v /data/db:/data/db -d mongo
 
 ### Test connection
 
+> This part does not functioning well at the moment, please skip it! Go to the section Run the API
+
 Run the following command to enter mongo shell
 
-**Notice**: `<YOUR-NAME>` can be replaced by container id, use `$ docker ps` to inspect container id
+**Notice**: container name `mongo` can be replaced by container id, use `$ docker ps` to inspect container id
 
 ```bash
-$ docker exec -it <YOUR-NAME> mongo
+$ docker exec -it mongodb mongo
 ```
 
 If you see the following text, then the connection is a succeed.
@@ -69,6 +68,9 @@ In your shell, enter the root directory, run the following command to install re
 
 ```bash
 $ pip install -r requirements.txt
+
+# or
+$ pip3 install -r requirements.txt
 ```
 
 
@@ -118,8 +120,8 @@ Here is the list of API provided:
 | API                           | Description                                                  | Method | Example                                           |
 | :---------------------------- | :----------------------------------------------------------- | :----: | :------------------------------------------------ |
 | /                             | Index page                                                   |  GET   | localhost:5000/                                   |
-| /outlets/brand/<brand name>   | List outlets which have certain brand. You can enter only the first several letters of a brand, e.g. 'coca' for 'Coca-Cola'. Here is some examples of brand in the database: 'Fuze Tea', 'Frnandes', 'Chaudfontaine', etc. You don't need to capitalize the brand name. |  GET   | localhost:5000/outlets/brand/fuz                  |
-| /outlets/source/<source name> | List outlets by their source                                 |  GET   | localhost:5000/outlets/source/ubereats            |
-| /menus/price/above/<price>    | List menus which the item is above certain price             |  GET   | localhost:5000/menus/price/above/10               |
-| /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | localhost:5000/insert/outlet/?id_outlet=......... |
+| /outlets/brand/<brand name>   | List outlets which have certain brand. You can enter only the first several letters of a brand, e.g. 'coca' for 'Coca-Cola'. Here is some examples of brand in the database: 'Fuze Tea', 'Frnandes', 'Chaudfontaine', etc. You don't need to capitalize the brand name. |  GET   | http://127.0.0.1:5000/outlets/brand/fuz                  |
+| /outlets/source/<source name> | List outlets by their source                                 |  GET   | http://127.0.0.1:5000/outlets/source/ubereats            |
+| /menus/price/above/<price>    | List menus which the item is above certain price             |  GET   | http://127.0.0.1:5000/menus/price/above/10               |
+| /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | http://127.0.0.1:5000/insert/outlet/?id_outlet=......... |
 
