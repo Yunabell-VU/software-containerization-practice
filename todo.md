@@ -3,7 +3,7 @@
 - [x] Set up Github repository
 - [x] Choose Database
 - [x] Initiate middleware and REST API
-- [ ] Add frontend branch
+- [ ] Set up frontend
 - [ ] Dockerfile
 - [ ] YAML file
 - [ ] Transport level security
