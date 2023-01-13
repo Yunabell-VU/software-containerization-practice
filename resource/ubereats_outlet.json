@@ -1,0 +1,142 @@
+[
+	{
+		"id_outlet" : "133789486375935476627406684831438871941",
+		"country" : "NL",
+		"name" : "De IJsmaker Witte de Withstraat",
+		"address" : "Witte De Withstraat 7a, 3012",
+		"reviews_nr" : 17
+	},
+	{
+		"id_outlet" : "49902879992629236407831306704091856908",
+		"country" : "NL",
+		"name" : "Dominos",
+		"address" : "Kamperfoelieweg 40, 1032 HP Amsterdam, Netherlands",
+		"reviews_nr" : 52
+	},
+	{
+		"id_outlet" : "283294963221695236170763356367199286448",
+		"country" : "NL",
+		"name" : "Sea Palace Restaurant",
+		"address" : "Oosterdokskade 8, 1011 AE Amsterdam, Netherlands",
+		"reviews_nr" : 145
+	},
+	{
+		"id_outlet" : "327257783106451358954447114691995086169",
+		"country" : "NL",
+		"name" : "Subway",
+		"address" : "Vrijstraat 23, 5611 AT Eindhoven, Netherlands",
+		"reviews_nr" : 63
+	},
+	{
+		"id_outlet" : "314032653973337478450144404494058558532",
+		"country" : "NL",
+		"name" : "Sushi De Luxe",
+		"address" : "Cinemadreef 236, 1325 ER Almere, Netherlands",
+		"reviews_nr" : 15
+	},
+	{
+		"id_outlet" : "321365545283542343578744113965592435892",
+		"country" : "NL",
+		"name" : "THE BAB",
+		"address" : "Camperstraat 36, 1091 AG Amsterdam, Netherlands",
+		"reviews_nr" : 200
+	},
+	{
+		"id_outlet" : "127048456998651170056736953480857736328",
+		"country" : "NL",
+		"name" : "Fresh2U",
+		"address" : "Sweder van Zuylenweg 4 Utrecht",
+		"reviews_nr" : 13
+	},
+	{
+		"id_outlet" : "165997420050571885484241233202539084755",
+		"country" : "NL",
+		"name" : "Mac el Aziz Grillroom",
+		"address" : "Goudse Rijweg 48 Rotterdam",
+		"reviews_nr" : 22
+	},
+	{
+		"id_outlet" : "33417390446481492604604940052101658935",
+		"country" : "NL",
+		"name" : "Hapsalon Kapsalon",
+		"address" : "Lange Smeestraat 26 Utrecht",
+		"reviews_nr" : 15
+	},
+	{
+		"id_outlet" : "47002041566522905200636609827711769647",
+		"country" : "NL",
+		"name" : "Roti Boer",
+		"address" : "Ondiep-Zuidzijde 2, 3551 BW Utrecht, Netherlands",
+		"reviews_nr" : 31
+	},
+	{
+		"id_outlet" : "91943224646241056385634118768695280437",
+		"country" : "NL",
+		"name" : "Cafetaria & Pizzeria Straatweg",
+		"address" : "Amsterdamsestraatweg 118, 3513 AL Utrecht, Netherlands",
+		"reviews_nr" : 18
+	},
+	{
+		"id_outlet" : "252651641282346579703164237318735593936",
+		"country" : "NL",
+		"name" : "Ambala Tandoori",
+		"address" : "Vierambachtsstraat 147A, 3022 AL Rotterdam, Netherlands",
+		"reviews_nr" : 47
+	},
+	{
+		"id_outlet" : "63562601146806588372772564799565949887",
+		"country" : "NL",
+		"name" : "Burger company",
+		"address" : "Veldhovenring 2 Tilburg",
+		"reviews_nr" : 48
+	},
+	{
+		"id_outlet" : "297652528638499107975531520877353140589",
+		"country" : "NL",
+		"name" : "Op Saj",
+		"address" : "Steenweg 1, 3511 JK Utrecht, Netherlands",
+		"reviews_nr" : 14
+	},
+	{
+		"id_outlet" : "54510679703893206233253810796548733693",
+		"country" : "NL",
+		"name" : "SLA",
+		"address" : "Kruisweg 68B, 2011 LE Haarlem, Netherlands",
+		"reviews_nr" : 36
+	},
+	{
+		"id_outlet" : "190196191040961587160782732334856784888",
+		"country" : "NL",
+		"name" : "China Catering Eindhoven",
+		"address" : "Jan Heynslaan 149, 5622 KL Eindhoven, Netherlands",
+		"reviews_nr" : 10
+	},
+	{
+		"id_outlet" : "147604685768551105643067051820075670330",
+		"country" : "NL",
+		"name" : "La Zoccola del Pacioccone",
+		"address" : "Nieuwe Nieuwstraat 22HS, 1012 NH Amsterdam, Netherlands",
+		"reviews_nr" : 88
+	},
+	{
+		"id_outlet" : "35881379350896673743352998569627830528",
+		"country" : "NL",
+		"name" : "Van Speyk",
+		"address" : "Spuistraat 3a, 1012 SP Amsterdam, Netherlands",
+		"reviews_nr" : 22
+	},
+	{
+		"id_outlet" : "67256766394334269099759147717171913478",
+		"country" : "NL",
+		"name" : "Favorite Chicken & Ribs",
+		"address" : "Oudezijds Voorburgwal 64, 1012 GE Amsterdam, Netherlands",
+		"reviews_nr" : 28
+	},
+	{
+		"id_outlet" : "174781837695277235773315022668535172434",
+		"country" : "NL",
+		"name" : "Famous Burger",
+		"address" : "Nieuwezijds Voorburgwal 87, 1012 RE Amsterdam, Netherlands",
+		"reviews_nr" : 14
+	}
+]
