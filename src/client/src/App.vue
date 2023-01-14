@@ -1,5 +1,19 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+<script>
+import Home from "./components/Home.vue";
+import { get } from "./utils/request";
+
+export default {
+  name: "App",
+  components: { Home },
+  async mounted() {
+    async function ping() {
+      const result = await get("/");
+      const response = result.data;
+      console.log("ping server");
+    }
+    ping();
+  },
+};
 </script>
 
 <template>
@@ -13,11 +27,9 @@ import HelloWorld from "./components/HelloWorld.vue";
     />
 
     <div class="wrapper">
-      <HelloWorld msg="Frontend Connected!!" />
+      <Home msg="Front Connected!!" />
     </div>
   </header>
-
-  <main></main>
 </template>
 
 <style scoped>
