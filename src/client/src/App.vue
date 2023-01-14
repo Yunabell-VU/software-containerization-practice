@@ -1,5 +1,18 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+<script>
+import Home from "./components/Home.vue";
+import { mapGetters } from "vuex";
+
+export default {
+  name: "App",
+  components: { Home },
+  computed: {
+    ...mapGetters(["serverResponse", "outlets"]),
+  },
+  async mounted() {
+    await this.$store.dispatch("pingServer");
+    await this.$store.dispatch("setOutlets");
+  },
+};
 </script>
 
 <template>
@@ -13,11 +26,14 @@ import HelloWorld from "./components/HelloWorld.vue";
     />
 
     <div class="wrapper">
-      <HelloWorld msg="Frontend Connected!!" />
+      <Home :msg="this.serverResponse" />
     </div>
   </header>
-
-  <main></main>
+  <main>
+    <div>
+      {{ this.outlets }}
+    </div>
+  </main>
 </template>
 
 <style scoped>
@@ -43,8 +59,6 @@ header {
 
   header .wrapper {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
   }
 }
 </style>
