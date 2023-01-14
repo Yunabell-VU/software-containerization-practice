@@ -4,7 +4,7 @@
 
 1. `Docker`  installed
 2. `Python >= 3.4`  installed
-3. `Node.js` installed
+3. `Node.js >= 16` installed
 
 
 ## 1. Run the database
@@ -129,7 +129,9 @@ Here is the list of API provided:
 
 ### Run the Web
 
-Make sure Node.js is installed.
+Make sure Node.js (version >= 16) is installed.
+
+**Keep API running, open a new terminal.**
 
 Go to the directory `/src/client`, enter the following CMD in order:
 
