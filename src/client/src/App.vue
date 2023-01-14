@@ -1,17 +1,16 @@
 <script>
 import Home from "./components/Home.vue";
-import { get } from "./utils/request";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
   components: { Home },
+  computed: {
+    ...mapGetters(["serverResponse", "outlets"]),
+  },
   async mounted() {
-    async function ping() {
-      const result = await get("/");
-      const response = result.data;
-      console.log("ping server");
-    }
-    ping();
+    await this.$store.dispatch("pingServer");
+    await this.$store.dispatch("setOutlets");
   },
 };
 </script>
@@ -27,9 +26,14 @@ export default {
     />
 
     <div class="wrapper">
-      <Home msg="Front Connected!!" />
+      <Home :msg="this.serverResponse" />
     </div>
   </header>
+  <main>
+    <div>
+      {{ this.outlets }}
+    </div>
+  </main>
 </template>
 
 <style scoped>
@@ -55,8 +59,6 @@ header {
 
   header .wrapper {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
   }
 }
 </style>

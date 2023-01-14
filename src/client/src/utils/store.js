@@ -1,9 +1,9 @@
 import {createStore} from 'vuex'
-import { get } from "request";
+import { get } from "./request";
 
 const store = createStore({
     state: {
-        serverResponse: {},
+        serverResponse: "",
         outlets: {},
     },
     mutations: {
@@ -17,18 +17,17 @@ const store = createStore({
     actions: {
         async pingServer() {
             const result = await get("/");
-            const response = result.data
-            console.log("ping server")
+            const response = result
             this.commit('setServerResponse', response)
         },
         async setOutlets() {
-            const result = await get("/outlets/brand/fuz")
-            this.commit('setOutlets', result.data)
+            const result = await get("/menus/price/above/80")
+            this.commit('setOutlets', result)
         },
     },
     getters: {
         serverResponse: (state) => {
-            return {...state.serverResponse}
+            return state.serverResponse
         },
         outlets: (state) => {
             return {...state.outlets}
