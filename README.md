@@ -84,7 +84,7 @@ After successfully installed these modules, enter  directory `/src/middelware` ,
 $ python3 run.py
 ```
 
-**Notice**: Make sure your docker container mongodb is still running at `PORT:8888`
+**Notice**: Make sure your docker container mongodb is still running at `PORT:27017`
 
 You should be able to see the following text:
 
