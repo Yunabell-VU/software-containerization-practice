@@ -27,11 +27,6 @@ docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche
 
 open: http://localhost:8080
 
-### Front-end
-
-Same as describe in the section ### Run the web
-
-
 ---------------------------------------------------------------------------------------------------------------------
 
 ## 1. Run the database
