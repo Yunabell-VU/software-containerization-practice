@@ -4,8 +4,33 @@
 
 1. `Docker`  installed
 2. `Python >= 3.4`  installed
-3. `Node.js` installed
+3. `Node.js >= 16` installed
 
+
+
+## Temprorary Guides
+
+### Buid Docker network
+
+**In your terminal (make sure docker is launched):**
+```bash
+docker network create task-net
+
+docker run --name=mongo --rm -d --network=task-net mongo
+
+docker run --name=app-python --rm -p 5000:5000 -d --network=task-net reisafriche/test:1.0.3
+```
+
+**Test**
+
+open: http://localhost:5000/outlets/brand/fuz
+
+### Front-end
+
+Same as describe in the section ### Run the web
+
+
+---------------------------------------------------------------------------------------------------------------------
 
 ## 1. Run the database
 
