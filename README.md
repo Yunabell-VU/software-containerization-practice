@@ -25,7 +25,7 @@ docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche
 
 **Test**
 
-open: http://localhost:5000/outlets/brand/fuz
+open: http://localhost:8080
 
 ### Front-end
 
