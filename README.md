@@ -22,7 +22,7 @@ $ docker pull mongo:4.4.6
 Run the following command to create a container
 
 ```bash
-$ docker run --name mongo -v ~/desktop/data/db:/data/db -d mongo
+$ docker run --name mongo -p 27017:27017 -d mongo
 
 # "~/desktop/" can be replaced with the local path you want
 ```
