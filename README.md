@@ -10,7 +10,59 @@
 
 ## Temprorary Guides
 
-### Buid Docker network
+
+-------
+
+### Test in k8s
+
+
+> USE microk8s instead of minikube, unless you know how to enter minikube's virtual machine
+
+Start microk8s
+```shell
+microk8s start
+```
+
+test if kubenetes works
+```shell
+kubectl get pod
+```
+
+At the root of /containerization-group30
+```shell
+kubectl apply -f mongo.yaml
+kubectl apply -f api.yaml
+kubectl apply -f frontend.yaml
+```
+
+Check pods:
+```shell
+kubectl get pod
+```
+
+Check services:
+```shell
+kubectl get svc
+```
+
+Check logs of pod:
+```shell
+kubectl logs <podName>
+```
+
+Find k8s ip:
+```shell
+kubectl get node -o wide
+```
+
+Delete all pods and resources:
+```shell
+kubectl delete all --all --namespace default
+```
+
+-----------------
+
+### Buid Docker network (OUTDATED!!!!)
 
 **In your terminal (make sure docker is launched):**
 ```bash
