@@ -92,22 +92,6 @@ $ python3 run.py
 
 You should be able to see the following text:
 
-> tripadvisor_out insert successfully
-> tripadvisor_user insert successfully
-> tripadvisor_reviews insert successfully
-> ubereats_out insert successfully
-> ubereats_menu insert successfully
->
->  * Serving Flask app 'api' (lazy loading)
->  * Environment: production
->    WARNING: This is a development server. Do not use it in a production deployment.
->    Use a production WSGI server instead.
->  * Debug mode: off
->  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
->  * ...
-
-
-
 ### Test API
 
 Open your browser at 
