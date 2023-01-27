@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: reisafriche/test:1.0.3
+          image: reisafriche/python-api:1.0.0
           ports:
             - containerPort: 5000
 ---

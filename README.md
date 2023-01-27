@@ -89,9 +89,9 @@ docker network create task-net
 
 docker run --name=mongo --rm -d --network=task-net mongo
 
-docker run --name=app-server --rm -p 5000:5000 -d --network=task-net reisafriche/test:1.0.3
+docker run --name=app-server --rm -p 5000:5000 -d --network=task-net reisafriche/python-api:1.0.0
 
-docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche/vue-app:1.0.1  
+docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche/vue-app:1.0.2  
 ```
 
 **Test**

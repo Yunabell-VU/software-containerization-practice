@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: reisafriche/vue-app:1.0.1
+          image: reisafriche/vue-app:1.0.2
           ports:
             - containerPort: 8080
 ---
