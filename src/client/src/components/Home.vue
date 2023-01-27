@@ -1,7 +1,9 @@
 <script>
+import Content from "./Content.vue";
 import { mapGetters } from "vuex";
 
 export default {
+  components: { Content },
   data() {},
   computed: {
     ...mapGetters(["serverResponse", "outlets"]),
@@ -19,7 +21,7 @@ export default {
     <div class="home-content"></div>
 
     <div>
-      {{ this.outlets }}
+      <Content :outlets="this.outlets" />
     </div>
   </div>
 </template>
@@ -32,9 +34,11 @@ export default {
 }
 
 .home-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100px;
   background-color: rgb(0, 101, 189);
-  padding: 5px;
 }
 
 .home-header__logo {
@@ -53,8 +57,10 @@ h3 {
 }
 
 .greetings {
+  display: flex;
   color: white;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 .greetings h1,
 .greetings h3 {
