@@ -62,7 +62,34 @@ $ docker run --name mongodb -p 8888:27017 -v ~/desktop/data/db:/data/db -d mongo
 
 
 
+<!-- ### Test connection
 
+> This part does not functioning well at the moment, please skip it! Go to the section Run the API
+
+Run the following command to enter mongo shell
+
+**Notice**: container name `mongo` can be replaced by container id, use `$ docker ps` to inspect container id
+
+```bash
+$ docker exec -it mongodb mongo
+```
+
+If you see the following text, then the connection is a succeed.
+
+>MongoDB shell version <v4.4.6>
+>connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+>Implicit session: session { "id" : UUID("4516667f-0417-48b1-8d71-34376fe09bc9") }
+>MongoDB server version: 4.4.6
+>Welcome to the MongoDB shell.
+>
+>...
+
+Exit the database
+
+```bash
+>> exit
+```
+ -->
 
 
 ## 2. Run the API
