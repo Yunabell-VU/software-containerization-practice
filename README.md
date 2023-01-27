@@ -52,12 +52,20 @@ kubectl logs <podName>
 ```
 
 **TEST API**
-use the CLUSTER-IP of `backend-service`, e.g.: 10.152.183.160
-open browser with the address: <ipAddress>:5000
+use the CLUSTER-IP of `backend-service`, e.g.: 10.152.183.160  
+
+open browser with the address: 
+```shell
+<ip_address>:5000
+```
 
 **TEST Frontend**
-use the CLUSTER-IP of `frontend-service`, e.g.: 10.152.183.35
-open browser with the address: <ipAddress>:8080
+use the CLUSTER-IP of `frontend-service`, e.g.: 10.152.183.35  
+
+open browser with the address:
+```shell
+<ip_address>:8080
+```
 
 
 ----
