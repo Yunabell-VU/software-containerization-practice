@@ -7,6 +7,108 @@
 3. `Node.js >= 16` installed
 
 
+
+## Temprorary Guides
+
+
+-------
+
+### Test in k8s
+
+
+> USE microk8s instead of minikube, unless you know how to enter minikube's virtual machine
+
+Start microk8s
+```shell
+microk8s start
+```
+
+test if kubenetes works
+```shell
+kubectl get pod
+```
+
+At the root of /containerization-group30
+```shell
+# please apply the yaml files in order!!
+kubectl apply -f mongo.yaml
+kubectl apply -f api.yaml
+kubectl apply -f frontend.yaml
+```
+
+Check pods:
+```shell
+kubectl get pod
+```
+
+Check services:
+```shell
+kubectl get svc
+```
+
+Check logs of pod:
+```shell
+kubectl logs <podName>
+```
+
+**TEST API**
+use the CLUSTER-IP of `backend-service`, e.g.: 10.152.183.160  
+
+open browser with the address: 
+```shell
+<ip_address>:5000
+```
+
+**TEST Frontend**
+use the CLUSTER-IP of `frontend-service`, e.g.: 10.152.183.35  
+
+open browser with the address:
+```shell
+<ip_address>:8080
+```
+
+
+----
+(not neccessary) Find k8s ip:
+```shell
+kubectl get node -o wide
+```
+
+(To re-deploy) Delete all pods and resources:
+```shell
+kubectl delete all --all --namespace default
+```
+
+-----------------
+
+### Buid Docker network (OUTDATED!!!!)
+
+**In your terminal (make sure docker is launched):**
+```bash
+docker network create task-net
+
+docker run --name=mongo --rm -d --network=task-net mongo
+
+docker run --name=app-server --rm -p 5000:5000 -d --network=task-net reisafriche/test:1.0.3
+
+docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche/vue-app:1.0.1  
+```
+
+**Test**
+
+open: http://localhost:8080
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+## PORT
+
+- MongoDB: **27017**
+- API: **5000**
+- WebAPP: **8080**
+- External Service (NodePort): 30030
+---------------------------------------------------------------------------------------------------------------------
+
 ## 1. Run the database
 
 ### Pull `MongoDb` official image from docker
@@ -87,22 +189,6 @@ $ python3 run.py
 **Notice**: Make sure your docker container mongodb is still running at `PORT:27017`
 
 You should be able to see the following text:
-
-> tripadvisor_out insert successfully
-> tripadvisor_user insert successfully
-> tripadvisor_reviews insert successfully
-> ubereats_out insert successfully
-> ubereats_menu insert successfully
->
->  * Serving Flask app 'api' (lazy loading)
->  * Environment: production
->    WARNING: This is a development server. Do not use it in a production deployment.
->    Use a production WSGI server instead.
->  * Debug mode: off
->  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
->  * ...
-
-
 
 ### Test API
 

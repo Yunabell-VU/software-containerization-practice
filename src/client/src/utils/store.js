@@ -3,7 +3,7 @@ import { get } from "./request";
 
 const store = createStore({
     state: {
-        serverResponse: "",
+        serverResponse: "server: not connected",
         outlets: {},
     },
     mutations: {

@@ -3,9 +3,9 @@
 - [x] Set up Github repository
 - [x] Choose Database
 - [x] Initiate middleware and REST API
-- [ ] Set up frontend
-- [ ] Dockerfile
-- [ ] YAML file
+- [x] Set up frontend
+- [x] Dockerfile
+- [x] YAML file
 - [ ] Transport level security
 - [ ] Helm Chart
 - [ ] Security - Network policies
