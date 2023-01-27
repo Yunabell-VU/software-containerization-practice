@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: tasksapp
   labels:
-    app: backend
+    app: tasksapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: tasksapp
   template:
     metadata:
       labels:
-        app: backend
+        app: tasksapp
     spec:
       containers:
-        - name: backend
+        - name: tasksapp
           image: reisafriche/test:1.0.3
           ports:
             - containerPort: 5000
@@ -23,11 +23,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: tasksapp-service
 spec:
+  type: NodePort
   selector:
-    app: backend
+    app: tasksapp
   ports:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30000
