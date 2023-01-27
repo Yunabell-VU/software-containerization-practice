@@ -7,6 +7,9 @@ export default {
     },
   },
   data() {},
+  mounted() {
+    console.log(msg);
+  },
 };
 </script>
 
