@@ -124,7 +124,7 @@ $ docker pull mongo:4.4.6
 Run the following command to create a container
 
 ```bash
-$ docker run --name mongodb -p 8888:27017 -v ~/desktop/data/db:/data/db -d mongo
+$ docker run --name mongo -p 27017:27017 -d mongo
 
 # "~/desktop/" can be replaced with the local path you want
 ```
@@ -186,7 +186,7 @@ After successfully installed these modules, enter  directory `/src/middelware` ,
 $ python3 run.py
 ```
 
-**Notice**: Make sure your docker container mongodb is still running at `PORT:8888`
+**Notice**: Make sure your docker container mongodb is still running at `PORT:27017`
 
 You should be able to see the following text:
 
@@ -215,7 +215,9 @@ Here is the list of API provided:
 
 ### Run the Web
 
-Make sure Node.js is installed.
+Make sure Node.js (version >= 16) is installed.
+
+**Keep API running, open a new terminal.**
 
 Go to the directory `/src/client`, enter the following CMD in order:
 
