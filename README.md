@@ -30,6 +30,7 @@ kubectl get pod
 
 At the root of /containerization-group30
 ```shell
+# please apply the yaml files in order!!
 kubectl apply -f mongo.yaml
 kubectl apply -f api.yaml
 kubectl apply -f frontend.yaml
@@ -50,12 +51,22 @@ Check logs of pod:
 kubectl logs <podName>
 ```
 
-Find k8s ip:
+**TEST API**
+use the CLUSTER-IP of `backend-service`, e.g.: 10.152.183.160
+open browser with the address: <ipAddress>:5000
+
+**TEST Frontend**
+use the CLUSTER-IP of `frontend-service`, e.g.: 10.152.183.35
+open browser with the address: <ipAddress>:8080
+
+
+----
+(not neccessary) Find k8s ip:
 ```shell
 kubectl get node -o wide
 ```
 
-Delete all pods and resources:
+(To re-deploy) Delete all pods and resources:
 ```shell
 kubectl delete all --all --namespace default
 ```
@@ -72,7 +83,7 @@ docker run --name=mongo --rm -d --network=task-net mongo
 
 docker run --name=app-server --rm -p 5000:5000 -d --network=task-net reisafriche/test:1.0.3
 
-docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche/vue-app:1.0.0  
+docker run --name=app-client --rm -p 8080:8080 -d --network=task-net reisafriche/vue-app:1.0.1  
 ```
 
 **Test**
