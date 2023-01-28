@@ -36,7 +36,7 @@ def menus_price(price):
 @cross_origin()
 def post_outlet():
     if request.method == 'POST':
-        get_data=request.args
-        logic.create_outlet(get_data.to_dict())
+        data = json.loads(request.data)
+        logic.create_outlet(data)
 
     return 'insert successfully'

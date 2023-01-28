@@ -21,7 +21,7 @@ const store = createStore({
             this.commit('setServerResponse', response)
         },
         async setOutlets() {
-            const result = await get("/menus/price/above/80")
+            const result = await get("/outlets/source/ubereats")
             this.commit('setOutlets', result)
         },
     },
