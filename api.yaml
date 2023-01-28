@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: reisafriche/python-api:1.0.1
+          image: clytze/test-python:1.0.3
           ports:
             - containerPort: 5000
 ---
