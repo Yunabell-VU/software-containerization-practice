@@ -5,7 +5,8 @@ export const post = (url, data = {}) => {
         axios.post(url, data, {
             baseURL:"http://127.0.0.1:30020/",
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*'
             }
         }).then((response) => {
             resolve(response.data)
