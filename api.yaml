@@ -16,9 +16,25 @@ spec:
     spec:
       containers:
         - name: backend
-          image: reisafriche/python-api:1.0.1
+          image: reisafriche/python-api:latest
           ports:
-            - containerPort: 5000
+          - containerPort: 5000
+          env:
+          - name: USER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: mongo-secret
+                key: mongo-user
+          - name: USER_PWD
+            valueFrom:
+              secretKeyRef: 
+                name: mongo-secret
+                key: mongo-pwd
+          - name: DB_URL
+            valueFrom:
+              configMapKeyRef: 
+                name: mongo-config
+                key: mongo-url
 ---
 apiVersion: v1
 kind: Service
