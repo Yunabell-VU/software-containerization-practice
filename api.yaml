@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ricekoo/middleware:v5
+          image: reisafriche/python-api:latest
           ports:
           - containerPort: 5000
           env:
