@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: clytze/test-api:1.0.3
+          image: clytze/test-frontend:1.0.3
           ports:
             - containerPort: 8080
 ---
