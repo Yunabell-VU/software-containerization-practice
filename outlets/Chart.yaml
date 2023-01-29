@@ -4,7 +4,7 @@ appVersion: "1.0"
 description: A Helm chart for Kubernetes
 type: application
 
-name: app
+name: outlets
 version: 0.1.0
 
 

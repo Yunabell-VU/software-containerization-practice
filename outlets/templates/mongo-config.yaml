@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mongo-config
 data:
-  mongo-url: mongo-service
+  mongo-url: {{.Values.mongodb.svcName}}

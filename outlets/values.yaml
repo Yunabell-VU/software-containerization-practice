@@ -41,6 +41,22 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+mongodb:
+  svcName: mongo-service
+  port: 27017
+  version: "4.4.6"
+
+api:
+  name: api
+  svcName: api-service
+  port: 5000
+  nodePort: 30020
+
+webapp:
+  svcName: outlets-service
+  port: 8080
+  nodePort: 30030
+
 service:
   type: ClusterIP
   port: 80

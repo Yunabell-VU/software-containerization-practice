@@ -37,11 +37,11 @@ sudo snap install helm --classic
 
 At project root directory: (DEFAULT version)
 ```shell
-helm install app app-0.1.0.tgz 
+helm install outlets outlets-0.1.0.tgz
 ```
 (TO 小蔡：)To run other image or other variant in values versions:
 ```shell
-helm install app app-0.1.0.tgz -f app/values-cai.yaml
+helm install outlets outlets-0.1.0.tgz -f outlets/values-cai.yaml
 ```
 
 **IF return errors such as localhost refuse to be connected, enter cmd below, and helm install again**
@@ -58,7 +58,7 @@ Notice, if your terminal does not display anything, kill it and launch a new ter
 
 **To delete the deployment:**
 ```shell
-helm delete app
+helm delete outlets
 ```
 
 Now check your k8s, all deployment should be gone!
@@ -69,7 +69,7 @@ Now check your k8s, all deployment should be gone!
 
 At project root directory
 ```shell
-helm package app app
+helm package outlets outlets
 ```
 
 **Play around and enjoy!!**
