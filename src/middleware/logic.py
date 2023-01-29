@@ -1,10 +1,9 @@
-import pymongo 
+from client import mongo_client
 import json
 
 class Logic(object):
     def __init__(self):
-        # self.client = pymongo.MongoClient("mongodb://localhost:27017/dev")
-        self.client = pymongo.MongoClient("mongodb://mongo:27017/dev")
+        self.client = mongo_client
 
         self.db = self.client.container_group30
         self.collection_outlet = self.db.Outlet

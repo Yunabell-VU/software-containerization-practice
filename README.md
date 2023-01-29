@@ -11,6 +11,70 @@
 ## Temprorary Guides
 
 
+### Helm Chart
+
+**IMPORTANT: clear your kubenetes resouces first, including configmap and secret!!**
+```shell
+kubectl delete all --all --namespace default
+kubectl delete configmap mongo-config -n default
+kubectl delete secret mongo-secret -n default
+```
+
+Install helm chart: https://helm.sh/
+
+Mac:
+```shell
+brew install helm
+```
+
+Linux:
+```shell
+sudo snap install helm --classic
+```
+
+
+**To run the deployment:**  
+
+At project root directory: (DEFAULT version)
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+(TO 小蔡：)To run other image or other variant in values versions:
+```shell
+helm install outlets outlets-0.1.0.tgz -f outlets/values-cai.yaml
+```
+
+**IF return errors such as localhost refuse to be connected, enter cmd below, and helm install again**
+```shell
+kubectl config view --raw > ~/.kube/config
+microk8s kubectl config view --raw > ~/.kube/config
+```
+
+check if k8s is deployed:
+```shell
+kubectl get all
+```
+Notice, if your terminal does not display anything, kill it and launch a new terminal.
+
+**To delete the deployment:**
+```shell
+helm delete outlets
+```
+
+Now check your k8s, all deployment should be gone!
+
+**Any new yaml file can be throw into /app/templates folder**
+
+**To pack new Helm Chart**  
+
+At project root directory
+```shell
+helm package outlets outlets
+```
+
+**Play around and enjoy!!**
+
+
 -------
 
 ### Test in k8s

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:{{.Values.mongodb.version}}
+        ports:
+        - containerPort: {{.Values.mongodb.port}}
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef: 
+              name: mongo-secret
+              key: mongo-user
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef: 
+              name: mongo-secret
+              key: mongo-pwd
+        volumeMounts:
+            - name: storage
+              mountPath: /data/db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.mongodb.svcName}}
+spec:
+  selector:
+    app: mongo
+  ports:
+    - protocol: TCP
+      port: {{.Values.mongodb.port}}
+      targetPort: {{.Values.mongodb.port}}
