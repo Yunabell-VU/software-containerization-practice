@@ -29,10 +29,17 @@ At project root directory:
 helm install app app-0.1.0.tgz 
 ```
 
+**IF return errors such as localhost refuse to be connected, enter cmd below, and helm install again**
+```shell
+kubectl config view --raw > ~/.kube/config
+microk8s kubectl config view --raw > ~/.kube/config
+```
+
 check if k8s is deployed:
 ```shell
 kubectl get all
 ```
+Notice, if your terminal does not display anything, kill it and launch a new terminal.
 
 **To delete the deployment:**
 ```shell
