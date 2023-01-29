@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: reisafriche/vue-app:latest
+          image: "{{.Values.webImage.repository}}:{{.Values.webImage.tag}}"
           ports:
             - containerPort: 8080
 ---

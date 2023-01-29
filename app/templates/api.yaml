@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: reisafriche/python-api:latest
+          image: "{{.Values.apiImage.repository}}:{{.Values.apiImage.tag}}"
           ports:
           - containerPort: 5000
           env:
