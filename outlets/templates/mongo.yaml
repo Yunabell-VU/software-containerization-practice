@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: mongo:4.4.6
+        image: mongo:{{.Values.mongodb.version}}
         ports:
-        - containerPort: 27017
+        - containerPort: {{.Values.mongodb.port}}
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -34,11 +34,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-service
+  name: {{.Values.mongodb.svcName}}
 spec:
   selector:
     app: mongo
   ports:
     - protocol: TCP
-      port: 27017
-      targetPort: 27017
+      port: {{.Values.mongodb.port}}
+      targetPort: {{.Values.mongodb.port}}
