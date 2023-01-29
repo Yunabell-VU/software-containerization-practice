@@ -22,11 +22,26 @@ kubectl delete secret mongo-secret -n default
 
 Install helm chart: https://helm.sh/
 
+Mac:
+```shell
+brew install helm
+```
+
+Linux:
+```shell
+sudo snap install helm --classic
+```
+
+
 **To run the deployment:**  
 
-At project root directory:
+At project root directory: (DEFAULT version)
 ```shell
 helm install app app-0.1.0.tgz 
+```
+(TO 小蔡：)To run other image or other variant in values versions:
+```shell
+helm install app app-0.1.0.tgz -f app/values-cai.yaml
 ```
 
 **IF return errors such as localhost refuse to be connected, enter cmd below, and helm install again**
