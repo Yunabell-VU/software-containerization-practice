@@ -19,6 +19,13 @@ spec:
           image: mongo:4.4.6
           ports:
             - containerPort: 27017
+          volumeMounts:
+            - name: storage
+              mountPath: /data/db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
 
 ---
 
