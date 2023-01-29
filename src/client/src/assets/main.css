@@ -14,21 +14,14 @@ a,
   transition: 0.4s;
 }
 
-/* @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-} */
+.prime-bg {
+  background-color: rgb(0, 101, 189);
+  color: white;
+}
 
-/* @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.snd-bg {
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-} */
+  background-color: rgb(247, 159, 7);
+  color: black;
+  
+}

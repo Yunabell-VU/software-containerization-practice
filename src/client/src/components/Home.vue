@@ -40,13 +40,13 @@ export default {
 
 <template>
   <div class="home-wrapper">
-    <div class="home-header">
+    <div class="home-header prime-bg">
       <div class="greetings">
         <h1>{{ this.serverResponse }}</h1>
       </div>
     </div>
     <div class="home-add">
-      <div class="add-button" @click="showModal">ADD outlet</div>
+      <div class="add-button snd-bg" @click="showModal">ADD outlet</div>
     </div>
     <div>
       <Content :outlets="this.outlets" />
@@ -93,8 +93,12 @@ export default {
       <template #footer>
         <div class="modal-footer">
           <div class="modal-footer__buttons">
-            <button @click="closeModal" class="modal-button">cancel</button>
-            <button @click="handleSave" class="modal-button">save</button>
+            <button @click="closeModal" class="modal-button snd-bg">
+              cancel
+            </button>
+            <button @click="handleSave" class="modal-button snd-bg">
+              save
+            </button>
           </div>
         </div>
       </template>
@@ -114,7 +118,6 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100px;
-  background-color: rgb(0, 101, 189);
 }
 
 .home-header__logo {
@@ -136,8 +139,6 @@ export default {
   justify-content: center;
   width: 200px;
   height: 50px;
-  background-color: rgb(247, 159, 7);
-  color: black;
   font-size: 20px;
   font-weight: bold;
 }
@@ -195,8 +196,6 @@ li {
   width: 60px;
   height: 30px;
   margin-left: 10px;
-  background-color: rgb(247, 159, 7);
-  color: black;
   border: none;
   font-weight: bold;
 }
