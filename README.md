@@ -10,6 +10,60 @@
 
 ## Temprorary Guides
 
+### Google Kubernetes Engine
+
+**Console:**  https://console.cloud.google.com/kubernetes/list/overview?project=august-copilot-376219
+
+|Field|Description|
+|:-:|:-:|:-:|
+|Project ID|august-copilot-376219|
+|Cluster Name|cluster-outlet|
+|Region|europe-west4|
+|External IP|??|
+|(TBC)|...|
+
+Go to the console page, open Cloud SHELL.  
+
+If project is not set, use
+```shell
+gcloud config set project august-copilot-376219
+```
+
+#### Push local Helm Chart to Artifact Registry
+You can upload helm chart or yaml in the SHELL via `Upload` function.
+
+Package helm chart locally, and upload the helm chart package (e.g. outlets-0.1.0.tgz) to SHELL.
+
+You need to push the package in SHELL to Artifact Registory to be able to deploy the cluster.
+
+```shell
+helm push outlets-0.1.0.tgz oci://europe-west4-docker.pkg.dev/august-copilot-376219/helm-repo
+```
+**Notice:** Authentication maybe needed, you can either do it by click autherize in online CLOUD SHELL pop-up window, or enter the cmd below before pushing resource from SHELL to AR:
+
+```shell
+gcloud auth print-access-token | helm registry login -u oauth2accesstoken \
+--password-stdin https://europe-west4-docker.pkg.dev
+```
+
+#### Deploy Helm Chart in AR to Cluster
+
+```shell
+helm install outlets oci://europe-west4-docker.pkg.dev/august-copilot-376219/helm-repo/outlets --version 0.1.0
+```
+
+**Notice:** If credential of the cluster needed:
+```shell
+gcloud container clusters get-credentials --zone europe-west4 cluster-outlet
+```
+
+Use the Cloud SHELL for k8s and helm the same way as you do locally.
+
+**Enjoy!**
+
+
+---
+
 
 ### Helm Chart
 
