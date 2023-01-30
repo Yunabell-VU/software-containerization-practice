@@ -15,7 +15,7 @@
 **Console:**  https://console.cloud.google.com/kubernetes/list/overview?project=august-copilot-376219
 
 |Field|Description|
-|:-:|:-:|:-:|
+|:-:|:-:|
 |Project ID|august-copilot-376219|
 |Cluster Name|cluster-outlet|
 |Region|europe-west4|
