@@ -87,23 +87,23 @@ kubectl config view | grep server
 
 Expected behavior using api-server request:
 ```shell
-// cai's token
+// cai token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/pods --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
 //200: OK
 
-// cai's token
+// cai token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
 //403: FORBIDDEN
 
-// yuna's token
+// yuna token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
 //200: OK
 
-// yuna's token
+// yuna token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
 //403: FORBIDDEN
 
-// fan's token
+// fan token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz" --insecure
 //200: OK
 
