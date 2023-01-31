@@ -52,7 +52,7 @@ Install the helm chart and play with the *-role.yaml files in the templates.
 helm install outlets outlets-0.1.0.tgz
 ```
 
-Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are grant to the 3 users.
+Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are granted to the 3 users.
 
 Some RBAC related instructions:
 ```shell
@@ -101,7 +101,7 @@ curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header 
 
 // yuna's token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
-//200: OK
+//403: FORBIDDEN
 
 // fan's token
 curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz" --insecure
