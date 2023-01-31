@@ -10,6 +10,49 @@
 
 ## Temprorary Guides
 
+### Authentication through bearer token (Microk8s)
+
+Method: edit the known_tokens.csv
+
+Default known_tokens.csv directory (for Microk8s):
+
+```shell
+/var/snap/microk8s/current/credentials/known_tokens.csv
+```
+
+**Make sure the hostname of the node contain no capital letter and underscore (_), then enable RBAC with:**
+
+```shell
+microk8s enable rbac
+```
+
+Append the following tokens to the end of the known_tokens.csv. This will add 3 users (fan, yuna, cai) to the k8s cluster (in the format of token, user, uid, "optional group name")
+
+```shell
+VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz,fan,fan-id
+UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA,yuna,yuna-id
+232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq,cai,cai-id
+```
+
+Reboot Microk8s:
+
+```shell
+microk8s stop
+```
+```shell
+microk8s start
+```
+
+Install the helm chart and play with the *-role.yaml files in the templates. Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are grant to the 3 users.
+
+Some RBAC related instructions:
+```shell
+kubectl get role
+kubectl get clusterrole
+kubectl get rolebinding
+kubectl get clusterrolebinding
+kubectl auth can-i get pod --namespace default --as fan
+```
 
 ### Helm Chart
 
