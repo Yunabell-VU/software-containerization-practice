@@ -33,17 +33,26 @@ VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz,fan,fan-id
 UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA,yuna,yuna-id
 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq,cai,cai-id
 ```
+Delete current helm chart and package a new one:
+```shell
+helm delete outlets
+helm package outlets outlets
+```
 
 Reboot Microk8s:
 
 ```shell
 microk8s stop
-```
-```shell
 microk8s start
 ```
 
-Install the helm chart and play with the *-role.yaml files in the templates. Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are grant to the 3 users.
+Install the helm chart and play with the *-role.yaml files in the templates. 
+
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+
+Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are grant to the 3 users.
 
 Some RBAC related instructions:
 ```shell
@@ -51,7 +60,56 @@ kubectl get role
 kubectl get clusterrole
 kubectl get rolebinding
 kubectl get clusterrolebinding
-kubectl auth can-i get pod --namespace default --as fan
+```
+
+Expected behavior using auth cai-i command:
+```shell
+kubectl auth can-i get pod --namespace default --as cai
+//yes
+kubectl auth can-i get services --namespace default --as cai
+//no
+kubectl auth can-i get services --namespace default --as yuna
+//yes
+kubectl auth can-i get secret --namespace default --as yuna
+//no
+kubectl auth can-i get secret --namespace default --as fan
+//yes
+kubectl auth can-i get secret --namespace default --as nobody
+//no
+```
+The RBAC system can also be tested through requesting the k8s api-server.
+
+Get the IP address for server:
+```shell
+kubectl config view | grep server
+//server: https://127.0.0.1:16443
+```
+
+Expected behavior using api-server request:
+```shell
+// cai's token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/pods --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
+//200: OK
+
+// cai's token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
+//403: FORBIDDEN
+
+// yuna's token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
+//200: OK
+
+// yuna's token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
+//200: OK
+
+// fan's token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz" --insecure
+//200: OK
+
+// unknown token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Ga" --insecure
+//401: UNAUTHORIZED
 ```
 
 ### Helm Chart
