@@ -9,6 +9,75 @@
 
 
 ## Temprorary Guides
+### Enabling TLS
+
+Delete current helm chart and package a new one:
+```shell
+helm delete outlets
+helm package outlets outlets
+```
+
+**Premise**: enable ingress and cert-manager
+
+```shell
+microk8s enable ingree
+microk8s enable cert-manager
+```
+
+For the ingress to work locally without a proper DNS server setup, add the following to /etc/hosts:
+
+```shell
+127.0.0.1 my-webapp-group30.com
+```
+
+Install the helm chart:
+
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+
+Check tls related configurations:
+```shell
+kubectl get clusterissuer
+---
+NAME                        READY   AGE
+selfsigned-cluster-issuer   True    42m -> the cluster issuer which creates a self-signed root certificate for facilitating a private CA
+---
+
+
+kubectl get issuer
+---
+NAME             READY   AGE
+outlets-issuer   True    41m -> the private CA issuer which uses the root certificate to issue certificate for its residing namespace
+---
+
+
+kubectl get secret 
+---
+NAME                            TYPE                 DATA   AGE
+root-ca-secret                  kubernetes.io/tls    3      90m -> place for storing the self-signed root certificate 
+
+my-ingress-cert                 kubernetes.io/tls    3      90m ->
+place for storing the certificate issued by the private CA issuer
+...
+mongo-secret                    Oppaque              2      43m
+sh.helm.release.v1.outlets.v1   helm.sh/release.v1   1      43m
+```
+
+After all the workloads are up and running, check whether you can access the webapp via:
+```shell
+https://my-webapp-group30.com
+```
+Check whether http redirect works properly:
+```shell
+http://my-webapp-group30.com
+```
+Check whether api calls work properly:
+```shell
+https://my-webapp-group30.com/menus/price/above/50
+```
+
+And so on so forth...
 
 ### Authentication through bearer token (Microk8s)
 

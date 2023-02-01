@@ -21,3 +21,31 @@ spec:
                 name: outlets-service
                 port: 
                   number: 8080
+          - path: /outlets/brand/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /outlets/source/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /menus/price/above/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /insert/outlet/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
