@@ -20,7 +20,7 @@ helm package outlets outlets
 **Premise**: enable ingress and cert-manager
 
 ```shell
-microk8s enable ingree
+microk8s enable ingress
 microk8s enable cert-manager
 ```
 
@@ -63,6 +63,16 @@ place for storing the certificate issued by the private CA issuer
 mongo-secret                    Oppaque              2      43m
 sh.helm.release.v1.outlets.v1   helm.sh/release.v1   1      43m
 ```
+
+**Related yaml fiels:**
+
+selfsigned-cluster-issuer.yaml -> a self-signed cluster issuer
+
+root-ca.yaml -> send request to the selfsigned-cluster-issuer to create a root certificate. The root certificate is stored in root-ca-secret.
+
+outlets-issuer.yaml -> the issuer which sign the ingress certificate request using the root certificate
+
+webapp-ingress.yaml -> send certificate request to the outlets-issuer to create a certificate for the webapp ingress. The certificate is stored in my-ingress-cert  
 
 After all the workloads are up and running, check whether you can access the webapp via:
 ```shell
