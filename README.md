@@ -55,10 +55,9 @@ outlets-issuer   True    41m -> the private CA issuer which uses the root certif
 kubectl get secret 
 ---
 NAME                            TYPE                 DATA   AGE
-root-ca-secret                  kubernetes.io/tls    3      90m -> place for storing the self-signed root certificate 
+root-ca-secret                  kubernetes.io/tls    3      90m -> place to store the self-signed root certificate 
 
-my-ingress-cert                 kubernetes.io/tls    3      90m ->
-place for storing the certificate issued by the private CA issuer
+my-ingress-cert                 kubernetes.io/tls    3      90m -> place to store the certificate issued by the private CA issuer
 ...
 mongo-secret                    Oppaque              2      43m
 sh.helm.release.v1.outlets.v1   helm.sh/release.v1   1      43m
