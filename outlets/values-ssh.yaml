@@ -13,7 +13,7 @@ apiImage:
 webImage:
   repository: reisafriche/vue-app
   pullPolicy: IfNotPresent
-  tag: "v4-ssh"
+  tag: "v5-domain-anti"
 
 imagePullSecrets: []
 nameOverride: ""
