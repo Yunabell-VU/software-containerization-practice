@@ -9,6 +9,34 @@
 
 
 ## Temprorary Guides
+
+### Enabling Load Balancer
+
+```shell
+microk8s enable metallb
+```
+You will be asked to enter a range of free ip addresses for the LB to associate with services. For example, 20 private ip addresses are provided if entering:
+```shell
+10.50.100.5-10.50.100.25
+```
+
+Package and install the latest helm chart. Use the command to check whether load balancers are up and running:
+```shell
+kubectl get svc
+---
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP      10.152.183.1     <none>        443/TCP          3h55m
+mongo-service     ClusterIP      10.152.183.50    <none>        27017/TCP        29m
+outlets-service   LoadBalancer   10.152.183.100   10.50.100.5   8080:30814/TCP   29m
+api-service       LoadBalancer   10.152.183.153   10.50.100.6   5000:31924/TCP   29m
+```
+
+Taking the outlets-service as an example, the service is not accessible from:
+- cluster ip + cluster port (10.152.183.100:8080)
+- node ip + node port (10.0.2.15:30814)
+- external ip + cluster port (10.50.100.5:8080)
+
+From now on, taking the outlets-service as an example, the 
 ### Enabling TLS
 
 Delete current helm chart and package a new one:
