@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: outlets-issuer
+  namespace: default
+spec:
+  ca:
+    secretName: root-ca-secret
