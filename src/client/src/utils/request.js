@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://127.0.0.1:30020/"
+axios.defaults.baseURL = "https://my-webapp-group30.com/"
 
 export const post = (url, data = {}) => {
     return new Promise((resolve, reject) => {
