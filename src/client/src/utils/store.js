@@ -16,8 +16,8 @@ const store = createStore({
     },
     actions: {
         async pingServer() {
-            const result = await get("/");
-            const response = result
+            // const result = await get("/")
+            const response = "Restaurants"
             this.commit('setServerResponse', response)
         },
         async setOutlets() {

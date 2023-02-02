@@ -13,7 +13,7 @@ apiImage:
 webImage:
   repository: reisafriche/vue-app
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "v5-domain"
 
 imagePullSecrets: []
 nameOverride: ""

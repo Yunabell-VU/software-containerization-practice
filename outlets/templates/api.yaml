@@ -41,11 +41,12 @@ kind: Service
 metadata:
   name: {{.Values.api.svcName}}
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: {{.Values.api.name}}
   ports:
     - protocol: TCP
       port: {{.Values.api.port}}
       targetPort: {{.Values.api.port}}
-      nodePort: {{.Values.api.nodePort}}
+      # nodePort: {{.Values.api.nodePort}}
+  type: LoadBalancer

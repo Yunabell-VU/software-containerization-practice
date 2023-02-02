@@ -10,6 +10,112 @@
 
 ## Temprorary Guides
 
+### Enabling Load Balancer
+
+```shell
+microk8s enable metallb
+```
+You will be asked to enter a range of free ip addresses for the LB to associate with services. For example, 20 private ip addresses are provided if entering:
+```shell
+10.50.100.5-10.50.100.25
+```
+
+Package and install the latest helm chart. Use the command to check whether load balancers are up and running:
+```shell
+kubectl get svc
+---
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP      10.152.183.1     <none>        443/TCP          3h55m
+mongo-service     ClusterIP      10.152.183.50    <none>        27017/TCP        29m
+outlets-service   LoadBalancer   10.152.183.100   10.50.100.5   8080:30814/TCP   29m
+api-service       LoadBalancer   10.152.183.153   10.50.100.6   5000:31924/TCP   29m
+```
+
+Taking the outlets-service as an example, the service is not accessible from:
+- cluster ip + cluster port (10.152.183.100:8080)
+- node ip + node port (10.0.2.15:30814)
+- external ip + cluster port (10.50.100.5:8080)
+
+From now on, taking the outlets-service as an example, the 
+### Enabling TLS
+
+Delete current helm chart and package a new one:
+```shell
+helm delete outlets
+helm package outlets outlets
+```
+
+**Premise**: enable ingress and cert-manager
+
+```shell
+microk8s enable ingress
+microk8s enable cert-manager
+```
+
+For the ingress to work locally without a proper DNS server setup, add the following to /etc/hosts:
+
+```shell
+127.0.0.1 my-webapp-group30.com
+```
+
+Install the helm chart:
+
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+
+Check tls related configurations:
+```shell
+kubectl get clusterissuer
+---
+NAME                        READY   AGE
+selfsigned-cluster-issuer   True    42m -> the cluster issuer which creates a self-signed root certificate for facilitating a private CA
+---
+
+
+kubectl get issuer
+---
+NAME             READY   AGE
+outlets-issuer   True    41m -> the private CA issuer which uses the root certificate to issue certificate for its residing namespace
+---
+
+
+kubectl get secret 
+---
+NAME                            TYPE                 DATA   AGE
+root-ca-secret                  kubernetes.io/tls    3      90m -> place to store the self-signed root certificate 
+
+my-ingress-cert                 kubernetes.io/tls    3      90m -> place to store the certificate issued by the private CA issuer
+...
+mongo-secret                    Oppaque              2      43m
+sh.helm.release.v1.outlets.v1   helm.sh/release.v1   1      43m
+```
+
+**Related yaml fiels:**
+
+selfsigned-cluster-issuer.yaml -> a self-signed cluster issuer
+
+root-ca.yaml -> send request to the selfsigned-cluster-issuer to create a root certificate. The root certificate is stored in root-ca-secret.
+
+outlets-issuer.yaml -> the issuer which sign the ingress certificate request using the root certificate
+
+webapp-ingress.yaml -> send certificate request to the outlets-issuer to create a certificate for the webapp ingress. The certificate is stored in my-ingress-cert  
+
+After all the workloads are up and running, check whether you can access the webapp via:
+```shell
+https://my-webapp-group30.com
+```
+Check whether http redirect works properly:
+```shell
+http://my-webapp-group30.com
+```
+Check whether api calls work properly:
+```shell
+https://my-webapp-group30.com/menus/price/above/50
+```
+
+And so on so forth...
+
 ### Authentication through bearer token (Microk8s)
 
 Method: edit the known_tokens.csv
