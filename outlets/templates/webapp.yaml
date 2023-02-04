@@ -25,11 +25,12 @@ kind: Service
 metadata:
   name: {{.Values.webapp.svcName}}
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: {{ .Release.Name }}
   ports:
     - protocol: TCP
       port: {{.Values.webapp.port}}
       targetPort: {{.Values.webapp.port}}
-      nodePort: {{.Values.webapp.nodePort}}
+      # nodePort: {{.Values.webapp.nodePort}}
+  type: LoadBalancer

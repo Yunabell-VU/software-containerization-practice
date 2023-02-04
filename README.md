@@ -64,6 +64,213 @@ Use the Cloud SHELL for k8s and helm the same way as you do locally.
 
 ---
 
+### Enabling Load Balancer
+
+```shell
+microk8s enable metallb
+```
+You will be asked to enter a range of free ip addresses for the LB to associate with services. For example, 20 private ip addresses are provided if entering:
+```shell
+10.50.100.5-10.50.100.25
+```
+
+Package and install the latest helm chart. Use the command to check whether load balancers are up and running:
+```shell
+kubectl get svc
+---
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP      10.152.183.1     <none>        443/TCP          3h55m
+mongo-service     ClusterIP      10.152.183.50    <none>        27017/TCP        29m
+outlets-service   LoadBalancer   10.152.183.100   10.50.100.5   8080:30814/TCP   29m
+api-service       LoadBalancer   10.152.183.153   10.50.100.6   5000:31924/TCP   29m
+```
+
+Taking the outlets-service as an example, the service is not accessible from:
+- cluster ip + cluster port (10.152.183.100:8080)
+- node ip + node port (10.0.2.15:30814)
+- external ip + cluster port (10.50.100.5:8080)
+
+From now on, taking the outlets-service as an example, the 
+### Enabling TLS
+
+Delete current helm chart and package a new one:
+```shell
+helm delete outlets
+helm package outlets outlets
+```
+
+**Premise**: enable ingress and cert-manager
+
+```shell
+microk8s enable ingress
+microk8s enable cert-manager
+```
+
+For the ingress to work locally without a proper DNS server setup, add the following to /etc/hosts:
+
+```shell
+127.0.0.1 my-webapp-group30.com
+```
+
+Install the helm chart:
+
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+
+Check tls related configurations:
+```shell
+kubectl get clusterissuer
+---
+NAME                        READY   AGE
+selfsigned-cluster-issuer   True    42m -> the cluster issuer which creates a self-signed root certificate for facilitating a private CA
+---
+
+
+kubectl get issuer
+---
+NAME             READY   AGE
+outlets-issuer   True    41m -> the private CA issuer which uses the root certificate to issue certificate for its residing namespace
+---
+
+
+kubectl get secret 
+---
+NAME                            TYPE                 DATA   AGE
+root-ca-secret                  kubernetes.io/tls    3      90m -> place to store the self-signed root certificate 
+
+my-ingress-cert                 kubernetes.io/tls    3      90m -> place to store the certificate issued by the private CA issuer
+...
+mongo-secret                    Oppaque              2      43m
+sh.helm.release.v1.outlets.v1   helm.sh/release.v1   1      43m
+```
+
+**Related yaml fiels:**
+
+selfsigned-cluster-issuer.yaml -> a self-signed cluster issuer
+
+root-ca.yaml -> send request to the selfsigned-cluster-issuer to create a root certificate. The root certificate is stored in root-ca-secret.
+
+outlets-issuer.yaml -> the issuer which sign the ingress certificate request using the root certificate
+
+webapp-ingress.yaml -> send certificate request to the outlets-issuer to create a certificate for the webapp ingress. The certificate is stored in my-ingress-cert  
+
+After all the workloads are up and running, check whether you can access the webapp via:
+```shell
+https://my-webapp-group30.com
+```
+Check whether http redirect works properly:
+```shell
+http://my-webapp-group30.com
+```
+Check whether api calls work properly:
+```shell
+https://my-webapp-group30.com/menus/price/above/50
+```
+
+And so on so forth...
+
+### Authentication through bearer token (Microk8s)
+
+Method: edit the known_tokens.csv
+
+Default known_tokens.csv directory (for Microk8s):
+
+```shell
+/var/snap/microk8s/current/credentials/known_tokens.csv
+```
+
+**Make sure the hostname of the node contain no capital letter and underscore (_), then enable RBAC with:**
+
+```shell
+microk8s enable rbac
+```
+
+Append the following tokens to the end of the known_tokens.csv. This will add 3 users (fan, yuna, cai) to the k8s cluster (in the format of token, user, uid, "optional group name")
+
+```shell
+VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz,fan,fan-id
+UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA,yuna,yuna-id
+232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq,cai,cai-id
+```
+Delete current helm chart and package a new one:
+```shell
+helm delete outlets
+helm package outlets outlets
+```
+
+Reboot Microk8s:
+
+```shell
+microk8s stop
+microk8s start
+```
+
+Install the helm chart and play with the *-role.yaml files in the templates. 
+
+```shell
+helm install outlets outlets-0.1.0.tgz
+```
+
+Check whether RBAC works as expected. The current RBAC structure has 2 roles, 1 clusterrole, and 3 rolebindings. Different level of permission to access resources are granted to the 3 users.
+
+Some RBAC related instructions:
+```shell
+kubectl get role
+kubectl get clusterrole
+kubectl get rolebinding
+kubectl get clusterrolebinding
+```
+
+Expected behavior using auth cai-i command:
+```shell
+kubectl auth can-i get pod --namespace default --as cai
+//yes
+kubectl auth can-i get services --namespace default --as cai
+//no
+kubectl auth can-i get services --namespace default --as yuna
+//yes
+kubectl auth can-i get secret --namespace default --as yuna
+//no
+kubectl auth can-i get secret --namespace default --as fan
+//yes
+kubectl auth can-i get secret --namespace default --as nobody
+//no
+```
+The RBAC system can also be tested through requesting the k8s api-server.
+
+Get the IP address for server:
+```shell
+kubectl config view | grep server
+//server: https://127.0.0.1:16443
+```
+
+Expected behavior using api-server request:
+```shell
+// cai token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/pods --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
+//200: OK
+
+// cai token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer 232OFLvMPANyomLteB2WTjs2I+yUjSVMJJyK4Lne///6gP1rCl2of4wo6OafG/Bq" --insecure
+//403: FORBIDDEN
+
+// yuna token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/services --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
+//200: OK
+
+// yuna token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer UdrysVbZvQj6J/oAUWeVT2FMyv4ut/tnydXhJdcL/MnuqvKhnNuf7CHgH2sDHCjA" --insecure
+//403: FORBIDDEN
+
+// fan token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Gz" --insecure
+//200: OK
+
+// unknown token
+curl -X GET https://127.0.0.1:16443/api/v1/namespaces/default/secrets --header "Authorization: Bearer VxERUA62RoXUBcP0EDHtEI8YRJXRbMpS2eXm6NrjC1cmkkjedZmiGzKq4ctxu1Ga" --insecure
+//401: UNAUTHORIZED
+```
 
 ### Helm Chart
 
