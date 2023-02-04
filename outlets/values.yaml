@@ -5,10 +5,11 @@
 replicaCount: 1
 
 apiImage:
-  repository: reisafriche/python-api
+  # repository: reisafriche/python-api
+  repository: ricekoo/api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v2"
 
 webImage:
   repository: reisafriche/vue-app
