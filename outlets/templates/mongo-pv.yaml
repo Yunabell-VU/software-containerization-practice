@@ -8,5 +8,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /tmp/db
+    path: /var/db
   storageClassName: microk8s-hostpath
