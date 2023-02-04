@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: Stateful
+kind: Deployment
 metadata:
   name: mongo
   labels:
     app: mongo
 spec:
-  serviceName: ""
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mongo
@@ -33,48 +32,8 @@ spec:
               key: mongo-pwd
         volumeMounts:
             - name: storage
-              mountPath: /data/db
-  volumeClaimTemplates:
-  - metadata:
-      name: storage
-    spec:
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{.Values.mongodb.svcName}}
-spec:
-  selector:
-    app: mongo
-  ports:
-    - port: {{.Values.mongodb.port}}
-      name: web
-  ClusterIP: None
-
----
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  name: mongo-pv
-#spec:
-#  capacity:
-#    storage: 2Gi
-#  accessModes:
-#    - ReadWriteOnce
-#  hostPath:
-#    path: /tmp/db
-#---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: mongo-pvc
-#spec:
-#  accessModes:
-#    - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 2Gi
+              mountPath: /db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
