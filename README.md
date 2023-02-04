@@ -49,7 +49,7 @@ wget -qO- --timeout=2 http://mongo-service:27017
 ```
 This should return success.
 
-Since the ingress rule for the frontend is all allowed, it is ideal test egress rules using the frontend. Try to access the the frontend:
+Since the ingress rule for the frontend is all allowed, it is ideal to test egress rules using the frontend. Try to access the the frontend:
 ```shell
 wget -qO- --timeout=2 http://outlets-service:8080
 ```
@@ -61,7 +61,7 @@ Create a testing pod using the label which will be selected by the frontend sele
 ```shell
 kubectl run test-$RANDOM --rm -i -t --image=alpine --labels="app=outlets" -- sh
 ```
-Since the ingress rule for the frontend is all allowed, it is ideal test egress rules using the frontend. Try to access the the frontend:
+Since the ingress rule for the frontend is all allowed, it is ideal to test egress rules using the frontend. Try to access the the frontend:
 ```shell
 wget -qO- --timeout=2 http://outlets-service:8080
 ```
