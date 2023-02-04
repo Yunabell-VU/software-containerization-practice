@@ -42,3 +42,4 @@ spec:
     - protocol: TCP
       port: {{.Values.mongodb.port}}
       targetPort: {{.Values.mongodb.port}}
+
