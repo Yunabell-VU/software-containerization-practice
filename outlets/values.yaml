@@ -13,7 +13,7 @@ apiImage:
 webImage:
   repository: reisafriche/vue-app
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "v5-domain"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -40,6 +40,8 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+namespaceKey: kubernetes.io/metadata.name
 
 mongodb:
   svcName: mongo-service

@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+  annotations:
+    cert-manager.io/issuer: outlets-issuer
+    cert-manager.io/common-name: my-outlets-group30.com
+spec:
+  tls:
+  - hosts:
+    - my-webapp-group30.com
+    secretName: my-ingress-cert
+  rules:
+    - host: my-webapp-group30.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: outlets-service
+                port: 
+                  number: 8080
+          - path: /outlets/brand/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /outlets/source/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /menus/price/above/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000
+          - path: /insert/outlet/
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port: 
+                  number: 5000

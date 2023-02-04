@@ -24,7 +24,7 @@ export default {
 
 <template>
   <div class="row-wrapper">
-    <div class="row-header">outlet id: {{ this.outletId }}</div>
+    <div class="row-header prime-bg">outlet id: {{ this.outletId }}</div>
     <div class="row-content">
       <div class="row-content-item">
         <span class="tag">name: </span>
@@ -57,8 +57,6 @@ export default {
   padding-left: 5px;
   width: 100%;
   height: 25px;
-  background-color: rgb(0, 101, 189);
-  color: white;
   font-weight: bold;
   font-size: 13px;
 }

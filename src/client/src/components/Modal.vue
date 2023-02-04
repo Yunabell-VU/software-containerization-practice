@@ -8,7 +8,7 @@ export default {
   <transition name="my-modal-fade">
     <div class="my-modal-backdrop" @click="$emit('close')">
       <div class="my-modal" @click.stop>
-        <header class="my-modal-header" id="modalTitle">
+        <header class="my-modal-header snd-bg" id="modalTitle">
           <div>Add a new outlet</div>
         </header>
 
@@ -51,8 +51,6 @@ export default {
 }
 .my-modal-header {
   position: relative;
-  background-color: rgb(247, 159, 7);
-  color: black;
   font-size: 30px;
   font-weight: bolder;
   justify-content: center;
