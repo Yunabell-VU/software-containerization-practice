@@ -5,8 +5,7 @@
 replicaCount: 1
 
 apiImage:
-  # repository: reisafriche/python-api
-  repository: ricekoo/api
+  repository: reisafriche/python-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v2"
