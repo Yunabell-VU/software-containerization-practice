@@ -10,6 +10,68 @@
 
 ## Temprorary Guides
 
+### Network Policy Testing
+
+**DB only allow ingress from api:**
+
+Create a testing pod, open the terminal of the pod
+```shell
+kubectl run test-$RANDOM --rm -i -t --image=alpine -- sh
+```
+Try to access the DB:
+```shell
+wget -qO- --timeout=2 http://mongo-service:27017
+```
+This should return time out. Use exit or crtl + d to quit.
+
+Create a testing pod using the label which will be selected by the api selector:
+```shell
+kubectl run test-$RANDOM --rm -i -t --image=alpine --labels="app=api" -- sh
+```
+
+Try to access the DB:
+```shell
+wget -qO- --timeout=2 http://mongo-service:27017
+```
+
+This should return success.  
+
+**API only allow egress to DB:**
+
+Create a testing pod using the label which will be selected by the api selector:
+```shell
+kubectl run test-$RANDOM --rm -i -t --image=alpine --labels="app=api" -- sh
+```
+
+Try to access the DB:
+```shell
+wget -qO- --timeout=2 http://mongo-service:27017
+```
+This should return success.
+
+Since the ingress rule for the frontend is all allowed, it is ideal to test egress rules using the frontend. Try to access the the frontend:
+```shell
+wget -qO- --timeout=2 http://outlets-service:8080
+```
+This should return time out.
+
+**Frontend only allow egress to API:**
+
+Create a testing pod using the label which will be selected by the frontend selector:
+```shell
+kubectl run test-$RANDOM --rm -i -t --image=alpine --labels="app=outlets" -- sh
+```
+Since the ingress rule for the frontend is all allowed, it is ideal to test egress rules using the frontend. Try to access the the frontend:
+```shell
+wget -qO- --timeout=2 http://outlets-service:8080
+```
+This should return time out.
+
+Try to access the the API:
+ ```shell
+wget -qO- --timeout=2 http://api-service:5000
+```
+This should return success.
 ### Enabling Load Balancer
 
 ```shell
@@ -31,12 +93,11 @@ outlets-service   LoadBalancer   10.152.183.100   10.50.100.5   8080:30814/TCP  
 api-service       LoadBalancer   10.152.183.153   10.50.100.6   5000:31924/TCP   29m
 ```
 
-Taking the outlets-service as an example, the service is not accessible from:
+Taking the outlets-service as an example, the service is now accessible from:
 - cluster ip + cluster port (10.152.183.100:8080)
 - node ip + node port (10.0.2.15:30814)
 - external ip + cluster port (10.50.100.5:8080)
 
-From now on, taking the outlets-service as an example, the 
 ### Enabling TLS
 
 Delete current helm chart and package a new one:
