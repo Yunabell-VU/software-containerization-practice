@@ -17,7 +17,7 @@
 1. `Docker`  installed
 2. `microk8s` installed
 
-**Notice:** All the demonstration are tested on Linux.
+**Notice:** All the demonstrations are tested on a cloud Linux server with a public IP.
 
 ### Load Balancer
 
