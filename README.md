@@ -208,7 +208,7 @@ kubectl get pods
 
 ### Uninstall deployment
 ```shell
-helm delete helm chart
+helm delete outlets
 ```
 
 check helm status:
