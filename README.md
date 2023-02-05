@@ -40,11 +40,66 @@
 
 ### Image build and Push
 
+directory: `~/src/middleware`
+```shell
+# build webapp image
+docker build -t reisafriche/python-api:v2 .
+
+# push webapp image
+docker build reisafriche/python-api:v2
+```
+
+directory: `~/src/client`
+```shell
+# build webapp image
+docker build -t reisafriche/vue-app:v5-domain .
+
+# push webapp image
+docker build reisafriche/vue-app:v5-domain
+```
+
 ### Deploy application
 
+directory: root of project
+```shell
+# packge helm chart
+helm package outlets/
+```
+```shell
+# install helm chart
+helm install outlets outlets-0.1.0.tgz
+```
+check helm deployment status
+```shell
+helm list
+```
+
 ### Horizontal Scale
+check pods before scaling:
+```shell
+kubectl get pods
+```
+
+Scale
+```shell
+kubectl scale deployment api --replicas=3
+kubectl scale deployment outlets --replicas=3
+```
+
+check pods after scaling:
+```shell
+kubectl get pods
+```
 
 ### Uninstall deployment
+```shell
+helm delete helm chart
+```
+
+check helm status:
+```shell
+helm list
+```
 
 ---
 
