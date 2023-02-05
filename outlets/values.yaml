@@ -4,6 +4,11 @@
 
 replicaCount: 1
 
+dbImage:
+  repository: mongodb
+  pullPolicy: IfNotPresent
+  tag: "4.4.6"
+  
 apiImage:
   repository: reisafriche/python-api
   pullPolicy: IfNotPresent
@@ -46,7 +51,7 @@ namespaceKey: kubernetes.io/metadata.name
 mongodb:
   svcName: mongo-service
   port: 27017
-  version: "4.4.6"
+  # version: "4.4.6"
 
 api:
   name: api

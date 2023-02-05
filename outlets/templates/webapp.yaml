@@ -5,20 +5,25 @@ metadata:
   labels:
     app: {{ .Release.Name }}
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       app: {{ .Release.Name }}
+      version: {{.Release.Version}}
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}
+        version: {{.Release.Version}}
     spec:
       containers:
         - name: {{ .Release.Name }}
           image: "{{.Values.webImage.repository}}:{{.Values.webImage.tag}}"
           ports:
             - containerPort: {{.Values.webapp.port}}
+          env:
+            - name: VERSION
+              value: {{.Release.Version}}
 ---
 apiVersion: v1
 kind: Service
