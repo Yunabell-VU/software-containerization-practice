@@ -15,8 +15,8 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongodb
-        image: mongo:{{.Values.mongodb.version}}
+      - name: {{.Values.dbImage.repository}}
+        image: mongo:{{.Values.dbImage.tag}}
         ports:
         - containerPort: {{.Values.mongodb.port}}
         env:

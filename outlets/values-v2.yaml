@@ -4,6 +4,11 @@
 
 replicaCount: 1
 
+dbImage:
+  repository: mongodb
+  pullPolicy: IfNotPresent
+  tag: "4.4.6"
+  
 apiImage:
   repository: reisafriche/python-api
   pullPolicy: IfNotPresent
@@ -13,7 +18,7 @@ apiImage:
 webImage:
   repository: reisafriche/vue-app
   pullPolicy: IfNotPresent
-  tag: "v5-domain-anti"
+  tag: "v5.1-domain"
 
 imagePullSecrets: []
 nameOverride: ""
