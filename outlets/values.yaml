@@ -8,7 +8,7 @@ dbImage:
   repository: mongodb
   pullPolicy: IfNotPresent
   tag: "4.4.6"
-  
+
 apiImage:
   repository: reisafriche/python-api
   pullPolicy: IfNotPresent

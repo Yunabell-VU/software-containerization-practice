@@ -9,21 +9,21 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-      version: {{.Release.Version}}
+      version: 0.1.0
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}
-        version: {{.Release.Version}}
+        version: 0.1.0
     spec:
       containers:
         - name: {{ .Release.Name }}
           image: "{{.Values.webImage.repository}}:{{.Values.webImage.tag}}"
           ports:
-            - containerPort: {{.Values.webapp.port}}
+            - containerPort: {{ .Values.webapp.port }}
           env:
             - name: VERSION
-              value: {{.Release.Version}}
+              value: 0.1.0
 ---
 apiVersion: v1
 kind: Service
