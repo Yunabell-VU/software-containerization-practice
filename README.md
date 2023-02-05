@@ -6,6 +6,8 @@
 
 ![UML-cd](https://github.com/Yunabell-VU/containerization-group30/blob/presentation/demo/sc-class-diagram.png)
 
+### Sequence Diagram
+
 ![UML-sd](https://github.com/Yunabell-VU/containerization-group30/blob/presentation/demo/sc-sequence-diagram.png)
 
 ---
