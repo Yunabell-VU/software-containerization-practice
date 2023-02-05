@@ -161,7 +161,7 @@ directory: `~/src/middleware`
 docker build -t reisafriche/python-api:v2 .
 
 # push webapp image
-docker build reisafriche/python-api:v2
+docker push reisafriche/python-api:v2
 ```
 
 directory: `~/src/client`
@@ -170,7 +170,7 @@ directory: `~/src/client`
 docker build -t reisafriche/vue-app:v5-domain .
 
 # push webapp image
-docker build reisafriche/vue-app:v5-domain
+docker push reisafriche/vue-app:v5-domain
 ```
 
 ### Deploy application
