@@ -6,20 +6,11 @@
 
 <u>The Technology used in the implementation:</u>
 
-- Docker : Run MongoDB and Flask as containers 
 - MongoDB : Database.
 - Python : Read JSON file, process raw data, save into the database and provide the APIs .
   - flask : Python module. Can work as a server and helps to define the APIs. 
   - pymongo : Python module. Allows Python to interact with MongoDB.
-
-
-
-<!-- In the original plan, I should be able to use `docker-compose` and `Dockerfile` to build a Docker image that contains both MongoDB and Flask to run the database and APIs in Docker. However, I only managed to use MongoDB and Flask though Docker separately. When running them together, the access request from Flask to MongoDB is always rejected. -->
-
-<!-- It seems like there is a problem with connecting to MongoDB from outside of the local internet. I tried to set `bind_ip = 0.0.0.0` in the MongoDB config file and change the host in Flask , but I failed.
-
-The solution is, still run MongoDB on Docker and run the Flask app locally. I wrote an environment setting manual to introduce how to set up the database and start the server to use the APIs. The manual is included in the files. -->
-
+- Vue.js: Frontend framework
 
 
 ### Data process and Database
