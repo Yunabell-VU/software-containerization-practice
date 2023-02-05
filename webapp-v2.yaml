@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: outlets
-          image: reisafriche/vue-app:v5-domain
+          image: reisafriche/vue-app:v5.1-domain
           ports:
             - containerPort: 8080
           env:

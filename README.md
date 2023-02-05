@@ -107,11 +107,65 @@ helm list
 
 ###  Re-build
 
+directory: `~/src/client`
+```shell
+docker build -t reisafriche/vue-app:v5.1-domain .
+docker push reisafriche/vue-app:v5.1-domain
+```
+
 ### Upgrade
 
 #### Rollout
 
+check current helm deployment
+```shell
+helm ls
+``` 
+
+upgrade
+```shell
+helm upgrade outlets outlets -f outlets/values-v2.yaml
+```
+
+rollback to previous revision
+```shell
+helm rollback outlets 1
+```
+
+
+
 #### Canary update
+
+check current pods
+```shell
+kubectl get pods --show-labels
+```
+
+current app replica decrease to 9
+```shell
+kubectl scale --replicas=9 deploy outlets
+```
+
+apply version `0.2.0`
+```shell
+kubectl apply -f webapp-v2.yaml
+```
+
+check current pods
+```shell
+kubectl get pods --show-labels
+```
+
+delete deployment of `0.1.0`
+```shell
+kubectl delete deploy outlets
+```
+
+scale-up version `0.2.0`
+```shell
+kubectl scale --replicas=10 deploy outlets-v2
+```
+
 
 
 ---
