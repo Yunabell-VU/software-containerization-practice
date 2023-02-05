@@ -64,7 +64,7 @@ https://my-webapp-group30.com/menus/price/above/50
 ```
 
 ### Roles
-Three roles are configured to grant different level of permission to access resources inside the cluster. They are **pod-viewer-role.yaml**, **developer-role.yaml**, and **secret-viewer-role.yaml**. In short, a pod-viewer can only read, watch, list pods under the current namespace; A developer can access more resoureces such as deployments and service. Also with the permission to **update** is granted; Only a secret-viewer have the right to get, watch, list the secret. Note that even though secret-viewer is set to be a custer role, it only works for the current namespace because it is a role binding inside the current namespace that associate with it, not a cluster role binding.
+Three roles are configured to grant different level of permission to access resources inside the cluster. They are **pod-viewer-role.yaml**, **developer-role.yaml**, and **secret-viewer-role.yaml**. In short, a pod-viewer can only read, watch, list pods under the current namespace; A developer can access more resoureces such as deployments and service. Also the permission to **update** is granted; Only a secret-viewer has the right to get, watch, list the secret. Note that even though secret-viewer is set to be a custer role, it only works for the current namespace because it is a role binding inside the current namespace that associate with it, not a cluster role binding.
 
 To test the RBAC system, we used static bearer tokens to simulate users. Specifically, fan, yuna, and cai are created and bind to different roles. That is, all 3 users are pod-viewer; yuna and fan are developer; fan is the only secret viewer.
 
