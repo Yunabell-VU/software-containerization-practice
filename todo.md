@@ -6,10 +6,10 @@
 - [x] Set up frontend
 - [x] Dockerfile
 - [x] YAML file
-- [ ] Transport level security
-- [ ] Helm Chart
-- [ ] Security - Network policies
-- [ ] Security - RBAC
-- [ ] Done with middleware
-- [ ] Done with frontend
+- [x] Transport level security
+- [x] Helm Chart
+- [x] Security - Network policies
+- [x] Security - RBAC
+- [x] Done with middleware
+- [x] Done with frontend
 - [ ] Google Cloud Platform

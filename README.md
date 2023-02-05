@@ -1,14 +1,67 @@
 # README
 
+## Application
+
+### Class Diagram
+
+![UML-cd](https://github.com/Yunabell-VU/containerization-group30/blob/presentation/demo/sc-class-diagram.png)
+
+![UML-sd](https://github.com/Yunabell-VU/containerization-group30/blob/presentation/demo/sc-sequence-diagram.png)
+
+---
+
 ## Prerequisites
 
 1. `Docker`  installed
-2. `Python >= 3.4`  installed
-3. `Node.js >= 16` installed
+2. `microk8s` installed
+
+**Notice:** All the demonstration are tested on Linux.
+
+### Load Balancer
 
 
+### Storage Class
 
-## Temprorary Guides
+
+### Image Registry
+
+
+### Certificates
+
+### Roles
+
+### Network Policies
+
+---
+
+## Deployment
+
+### Image build and Push
+
+### Deploy application
+
+### Horizontal Scale
+
+### Uninstall deployment
+
+---
+
+## Upgrade & Re-deployment
+
+###  Re-build
+
+### Upgrade
+
+#### Rollout
+
+#### Canary update
+
+
+---
+
+> The following manual is for developers of this project
+
+## Developer Guides
 
 ### Network Policy Testing
 
@@ -307,9 +360,9 @@ At project root directory: (DEFAULT version)
 ```shell
 helm install outlets outlets-0.1.0.tgz
 ```
-(TO 小蔡：)To run other image or other variant in values versions:
+To run other image or other variant in values versions:
 ```shell
-helm install outlets outlets-0.1.0.tgz -f outlets/values-cai.yaml
+helm install outlets outlets-0.1.0.tgz -f outlets/values-ssh.yaml
 ```
 
 **IF return errors such as localhost refuse to be connected, enter cmd below, and helm install again**
@@ -438,12 +491,21 @@ open: http://localhost:8080
 - MongoDB: **27017**
 - API: **5000**
 - WebAPP: **8080**
-- External Service (NodePort): 30030
+- External Service (NodePort) - API: **30020**
+- External Service (NodePort) - WebApp: **30030**
 ---------------------------------------------------------------------------------------------------------------------
 
-## 1. Run the database
+## Local version (Dev mode)
 
-### Pull `MongoDb` official image from docker
+### Prerequisites
+
+1. `Docker`  installed
+2. `Python >= 3.4`  installed
+3. `Node.js >= 16` installed
+
+### 1. Run the database
+
+#### Pull `MongoDb` official image from docker
 
 Run the following command to pull MongoDB
 
@@ -451,7 +513,7 @@ Run the following command to pull MongoDB
 $ docker pull mongo:4.4.6
 ```
 
-### Run database
+#### Run database
 
 Run the following command to create a container
 
@@ -463,41 +525,9 @@ $ docker run --name mongo -p 27017:27017 -d mongo
 
 **Notice**:  do not run the database in `--auth` mode
 
+### 2. Run the API
 
-
-<!-- ### Test connection
-
-> This part does not functioning well at the moment, please skip it! Go to the section Run the API
-
-Run the following command to enter mongo shell
-
-**Notice**: container name `mongo` can be replaced by container id, use `$ docker ps` to inspect container id
-
-```bash
-$ docker exec -it mongodb mongo
-```
-
-If you see the following text, then the connection is a succeed.
-
->MongoDB shell version <v4.4.6>
->connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
->Implicit session: session { "id" : UUID("4516667f-0417-48b1-8d71-34376fe09bc9") }
->MongoDB server version: 4.4.6
->Welcome to the MongoDB shell.
->
->...
-
-Exit the database
-
-```bash
->> exit
-```
- -->
-
-
-## 2. Run the API
-
-### Install required python modules
+#### Install required python modules
 
 In your shell, enter the root directory, run the following command to install required modules (Flask, pymongo)
 
@@ -510,7 +540,7 @@ $ pip3 install -r requirements.txt
 
 
 
-### Run the API
+#### Run the API
 
 After successfully installed these modules, enter  directory `/src/middelware` , run the python file `run.py`
 
@@ -522,7 +552,7 @@ $ python3 run.py
 
 You should be able to see the following text:
 
-### Test API
+#### Test API
 
 Open your browser at 
 
@@ -545,7 +575,7 @@ Here is the list of API provided:
 | /insert/outlet/<data>         | Add a new outlet into the database                           |  POST  | 127.0.0.1:5000/insert/outlet/?id_outlet=......... |
 
 
-### Run the Web
+#### Run the Web
 
 Make sure Node.js (version >= 16) is installed.
 
