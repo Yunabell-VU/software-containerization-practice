@@ -37,7 +37,7 @@ outlets-service   LoadBalancer   10.152.183.100   10.50.100.5   8080:30814/TCP  
 api-service       LoadBalancer   10.152.183.153   10.50.100.6   5000:31924/TCP   29m
 ```
 ### Storage Class
-For storage, we used MongoDB. Instead of a StatefulSet, we configured a deployment **mongo.yaml** to set up the mongoDB. Alongside the database deployment, a **mongo-serivce** is also configured which listens on port 27107 of the cluster IP and redirects the traffic to the port 27017 of the MongoDB pod. In order to avoid external excess, the **mongo-service** only expose on cluster IP. Node port and external IP are not established. The network policy further restrain the access to the databse inside the cluster which will be introduced in later section.
+For storage, we used MongoDB. Instead of a StatefulSet, we configured a deployment **mongo.yaml** to set up the mongoDB. Alongside the database deployment, a **mongo-serivce** is also configured which listens on port 27107 of the cluster IP and redirects the traffic to the port 27017 of the MongoDB pod. In order to avoid external excess, the **mongo-service** only exposes on cluster IP. Node port and external IP are not established. The network policies further restrain the access to the databse inside the cluster which will be introduced in later section.
 
 In terms of storage volume, a static persistent volume of 2 GB which allows read and write from a single node and resides on the host path is created in **mongo-pv.yaml**. Respectively, a persistent volume claim is also created in **mongo-pvc.yaml**. The reclaim policy of the PVC is **Retain** since the bonded volume is not dynamically allocated. 
 
@@ -50,7 +50,7 @@ The images involved in our project reside on the docker hub. The information abo
 ### Certificates
 To enable TLS security for our application, we first created a self-signed cluster issuer using the **cert-manager** API of kubernetes in **selfsigned-cluter-issuer.yaml**. Then, we use it to create a root certificate which will be stored in a secret file named **root-ca-secret**. After that, we are able to facilitate a privat CA **outlets-issuer** using the root certificate to sign certificate for our application ingress. Finally, our ingress controller defined in **webapp-ingress.yaml** can refer to the private CA and get a certificate to enable TLS security. The certificate is stored in a secret file named **my-ingress-cert**. 
 
-Check whethe webapp via:
+Check whether webapp is accessible via https:
 ```shell
 https://my-webapp-group30.com
 ```
@@ -64,9 +64,9 @@ https://my-webapp-group30.com/menus/price/above/50
 ```
 
 ### Roles
-Three roles are configured to grant different level of permission to access resources inside the cluster. They are **pod-viewer-role.yaml**, **developer-role.yaml**, and **secret-viewer-role.yaml**. In short, a pod-viewer can only read, watch, list pods under the current namespace; A developer can access more resoureces such as deployments and service. Also the permission to **update** is granted; Only a secret-viewer has the right to get, watch, list the secret. Note that even though secret-viewer is set to be a custer role, it only works for the current namespace because it is a role binding inside the current namespace that associate with it, not a cluster role binding.
+Three roles are configured to grant different level of permission to access resources inside the cluster. They are **pod-viewer-role.yaml**, **developer-role.yaml**, and **secret-viewer-role.yaml**. In short, a pod-viewer can only read, watch, list pods under the current namespace; A developer can access more resoureces such as deployments and services. Also the permission to **update** is granted; Only a secret-viewer has the right to get, watch, list the secret. Note that even though secret-viewer is set to be a custer role, it only works for the current namespace because it is a role binding inside the current namespace that associate with it, not a cluster role binding.
 
-To test the RBAC system, we used static bearer tokens to simulate users. Specifically, fan, yuna, and cai are created and bind to different roles. That is, all 3 users are pod-viewer; yuna and fan are developer; fan is the only secret viewer.
+To test the RBAC system, we used static bearer tokens to simulate users. Specifically, fan, yuna, and cai are created and binded to different roles. That is, all 3 users are pod-viewer; yuna and fan are developer; fan is the only secret viewer.
 
 Expected behavior using **auth can-i** command:
 ```shell
@@ -86,11 +86,11 @@ kubectl auth can-i get secret --namespace default --as nobody
 
 ### Network Policies
 
-Four network policies are enabled to restrain conmmunications inside the cluster. To enforce a good practice, first, **network-default-deny-all.yaml** blocks all the ingress and egress traffic for all pods inside the cluster except for the egress traffic to the DNS serivce of the cluster. Second, **network-mongo.yaml** defines a policy which blocks all egree traffic and only allows ingress traffic from API. Third, **network-backend.yaml** defines a policy which allows all ingress traffic but only allows egress traffic to the database. Last, **network-frontend.yaml** defines a policy which allows all ingress traffic but only allows egress traffic to the API.
+Four network policies are enabled to restrain conmmunications inside the cluster. To enforce a good practice, first, **network-default-deny-all.yaml** blocks all the ingress and egress traffic for all pods inside the cluster except for the egress traffic to the DNS serivce of the cluster. Second, **network-mongo.yaml** defines a policy which blocks all egress traffic and only allows ingress traffic from tge API. Third, **network-backend.yaml** defines a policy which allows all ingress traffic but only allows egress traffic to the database. Last, **network-frontend.yaml** defines a policy which allows all ingress traffic but only allows egress traffic to the API.
 
 **DB only allow ingress from api:**
 
-Create a testing pod, open the terminal of the pod
+Create a random testing pod, open the terminal of the pod
 ```shell
 kubectl run test-$RANDOM --rm -i -t --image=alpine -- sh
 ```
@@ -100,7 +100,7 @@ wget -qO- --timeout=2 http://mongo-service:27017
 ```
 This should return time out. Use exit or crtl + d to quit.
 
-Create a testing pod using the label which will be selected by the api selector:
+Create a testing pod using the label which will be selected by the API selector:
 ```shell
 kubectl run test-$RANDOM --rm -i -t --image=alpine --labels="app=api" -- sh
 ```
